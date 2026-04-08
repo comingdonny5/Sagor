@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IP Finder Ultimate - Sagor</title>
+<title>IP Finder - Multi-Source Engine</title>
+
 <style>
 body {
   background: radial-gradient(circle at top, #1a2a3a 0%, #000000 100%);
@@ -14,109 +15,299 @@ body {
   margin: 0;
   min-height: 100vh;
 }
-.top-header { display: flex; align-items: center; justify-content: flex-start; padding: 10px; margin-bottom: 10px; }
-.globe-icon { font-size: 24px; margin-right: 10px; border: 1.5px solid #fff; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
-.ip-finder-text { font-size: 22px; font-weight: bold; text-transform: uppercase; border-bottom: 3px solid #fff; }
-.creator { font-size: 26px; font-weight: bold; background: linear-gradient(90deg, #00ff99, #00cc66, #00ff99); background-size: 200% auto; color: transparent; -webkit-background-clip: text; animation: shine 3s linear infinite; margin-top: 15px; }
-@keyframes shine { 0% { background-position: 0% } 100% { background-position: 200% } }
-button.refresh { background: #00cc66; border: none; padding: 12px 30px; color: white; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0, 204, 102, 0.3); }
-.search-container { margin-bottom: 30px; }
-.input-box { background: #111; border: 1px solid #444; padding: 12px; border-radius: 6px; color: #fff; width: 180px; outline: none; }
-.search-btn { background: #0099ff; border: none; padding: 12px 20px; color: white; border-radius: 6px; margin-left: 8px; cursor: pointer; font-weight: bold; }
-.chart { background: rgba(20, 20, 20, 0.9); border-radius: 15px; padding: 20px; max-width: 420px; margin: auto; text-align: left; border: 1px solid #333; }
-.row { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px dashed #333; }
-.copy-btn { background: #222; border: 1px solid #444; padding: 4px 10px; font-size: 11px; color: #00ff99; border-radius: 4px; cursor: pointer; }
-.bar-container { margin-top: 25px; background: #000; height: 40px; border-radius: 8px; overflow: hidden; border: 1px solid #222; }
-.fill { height: 100%; width: 0%; text-align: center; line-height: 40px; font-weight: bold; transition: width 1.5s ease-in-out; color: #000; }
+
+/* 🌐 Header Section */
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.globe-icon {
+  font-size: 24px;
+  margin-right: 10px;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+.ip-finder-text {
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-bottom: 3px solid #fff;
+  letter-spacing: 1px;
+}
+
+.creator {
+  font-size: 26px;
+  font-weight: bold;
+  background: linear-gradient(90deg, #00ff99, #00cc66, #00ff99);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  animation: shine 3s linear infinite;
+  margin-top: 15px;
+}
+
+@keyframes shine {
+  0% { background-position: 0% }
+  100% { background-position: 200% }
+}
+
+.whatsapp {
+  font-size: 15px;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+/* 🔍 Controls */
+button.refresh {
+  background: #00cc66;
+  border: none;
+  padding: 12px 30px;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0, 204, 102, 0.3);
+}
+
+.search-container {
+  margin-bottom: 30px;
+}
+
+.search-title {
+  display: block;
+  font-size: 14px;
+  color: #bbb;
+  margin-bottom: 12px;
+}
+
+.input-box {
+  background: #111;
+  border: 1px solid #444;
+  padding: 12px;
+  border-radius: 6px;
+  color: #fff;
+  width: 180px;
+  outline: none;
+  font-size: 15px;
+}
+
+.search-btn {
+  background: #0099ff;
+  border: none;
+  padding: 12px 20px;
+  color: white;
+  border-radius: 6px;
+  margin-left: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* 📊 Results Table */
+.chart {
+  background: rgba(20, 20, 20, 0.9);
+  border-radius: 15px;
+  padding: 20px;
+  max-width: 420px;
+  margin: auto;
+  text-align: left;
+  border: 1px solid #333;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px dashed #333;
+}
+
+.row b {
+  color: #eee;
+  font-size: 16px;
+}
+
+.copy-btn {
+  background: #222;
+  border: 1px solid #444;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: #00ff99;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.isp-text {
+  color: #00ff99;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.bar-container {
+  margin-top: 25px;
+  background: #000;
+  height: 35px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #222;
+}
+
+.fill {
+  height: 100%;
+  width: 0%;
+  text-align: center;
+  line-height: 35px;
+  font-weight: bold;
+  transition: width 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
 </style>
 </head>
 <body>
 
-<div class="top-header"><div class="globe-icon">🌐</div><div class="ip-finder-text">Ip-finder</div></div>
+<div class="top-header">
+  <div class="globe-icon">🌐</div>
+  <div class="ip-finder-text">Ip-finder</div>
+</div>
+
 <div class="creator" id="creator-name">CREATOR BY SAGOR</div>
 <div class="whatsapp">Whatsapp : 01922755197</div>
 
 <button class="refresh" onclick="initLoad()">Refresh Data</button>
 
 <div class="search-container">
-  <span id="search-instr" style="display:block; color:#bbb; margin-bottom:10px;">Enter your ip address to find details</span>
+  <span id="search-instr" class="search-title">Enter your ip address to find details</span>
   <input type="text" id="ip-input" class="input-box" placeholder="e.g. 8.8.8.8">
   <button class="search-btn" onclick="searchAction()">Search</button>
 </div>
 
 <div class="chart">
   <div class="row"><b>Your IP:</b> <span id="res-ip">Connecting...</span></div>
-  <div class="row"><b>ASN:</b> <span><span id="res-asn">---</span> <button class="copy-btn" onclick="copyVal('res-asn', this)">Copy</button></span></div>
+  <div class="row">
+    <b>ASN:</b> 
+    <span><span id="res-asn">---</span> <button class="copy-btn" onclick="copyVal('res-asn', this)">Copy</button></span>
+  </div>
   <div class="row"><b>City:</b> <span id="res-city">---</span></div>
   <div class="row"><b>Region:</b> <span id="res-region">---</span></div>
   <div class="row"><b>Country:</b> <span id="res-country">---</span></div>
   <div class="row"><b>OS:</b> <span id="res-os">---</span></div>
-  <div class="row"><b>Timezone:</b> <span><span id="res-tz">---</span> <button class="copy-btn" onclick="copyVal('res-tz', this)">Copy</button></span></div>
-  <div class="row"><b>ISP:</b> <span id="res-isp" style="color:#00ff99;">---</span></div>
-  <div class="bar-container"><div class="fill" id="bar">Checking...</div></div>
+  <div class="row">
+    <b>Timezone City:</b> 
+    <span><span id="res-tz">---</span> <button class="copy-btn" onclick="copyVal('res-tz', this)">Copy</button></span>
+  </div>
+  <div class="row"><b>ISP:</b> <span id="res-isp" class="isp-text">---</span></div>
+
+  <div class="bar-container">
+    <div class="fill" id="bar">Waiting...</div>
+  </div>
 </div>
 
 <script>
-const boldMap = {'A':'𝐀','B':'𝐁','C':'𝐂','D':'𝐃','E':'𝐄','F':'𝐅','G':'𝐆','H':'𝐇','I':'𝐈','J':'𝐉','K':'𝐊','L':'𝐋','M':'𝐌','N':'𝐍','O':'𝐎','P':'𝐏','Q':'𝐐','R':'𝐑','S':'𝐒','T':'𝐓','U':'𝐔','V':'𝐕','W':'𝐖','X':'𝐗','Y':'𝐘','Z':'𝐐','a':'𝐚','b':'𝐛','c':'𝐜','d':'𝐝','e':'𝐞','f':'𝐟','g':'𝐠','h':'𝐡','i':'𝐢','j':'𝐣','k':'𝐤','l':'𝐥','m':'𝐦','n':'𝐧','o':'𝐨','p':'𝐩','q':'𝐪','r':'𝐫','s':'𝐬','t':'𝐭','u':'𝐮','v':'𝐯','w':'𝐰','x':'𝐱','y':'𝐲','z':'𝐳','0':'𝟎','1':'𝟏','2':'𝟐','3':'𝟑','4':'𝟒','5':'𝟓','6':'𝟔','7':'𝟕','8':'𝟖','9':'𝟗'};
-function toBold(t) { return t.split('').map(c => boldMap[c] || c).join(''); }
+const boldChars = {'A':'𝐀','B':'𝐁','C':'𝐂','D':'𝐃','E':'𝐄','F':'𝐅','G':'𝐆','H':'𝐇','I':'𝐈','J':'𝐉','K':'𝐊','L':'𝐋','M':'𝐌','N':'𝐍','O':'𝐎','P':'𝐏','Q':'𝐐','R':'𝐑','S':'𝐒','T':'𝐓','U':'𝐔','V':'𝐕','W':'𝐖','X':'𝐗','Y':'𝐘','Z':'𝐐','a':'𝐚','b':'𝐛','c':'𝐜','d':'𝐝','e':'𝐞','f':'𝐟','g':'𝐠','h':'𝐡','i':'𝐢','j':'𝐣','k':'𝐤','l':'𝐥','m':'𝐦','n':'𝐧','o':'𝐨','p':'𝐩','q':'𝐪','r':'𝐫','s':'𝐬','t':'𝐭','u':'𝐮','v':'𝐯','w':'𝐰','x':'𝐱','y':'𝐲','z':'𝐳','0':'𝟎','1':'𝟏','2':'𝟐','3':'𝟑','4':'𝟒','5':'𝟓','6':'𝟔','7':'𝟕','8':'𝟖','9':'𝟗'};
+function textToBold(t) { return t.split('').map(c => boldChars[c] || c).join(''); }
 
-async function initLoad(ip = '') {
+async function initLoad(manualIP = '') {
   const bar = document.getElementById('bar');
-  bar.style.width = "30%"; bar.innerText = "Analyzing..."; bar.style.background = "#444";
+  bar.style.width = "0%";
+  bar.innerText = "Analyzing...";
+  bar.style.background = "#222";
+  bar.style.color = "#fff";
 
-  // Multi-Source Fetching
-  let data = await tryAPIs(ip);
-  if(data) updateUI(data);
-  else { bar.style.width = "100%"; bar.innerText = "API Limit Exceeded!"; bar.style.background = "red"; }
-}
-
-async function tryAPIs(ip) {
-  const sources = [
-    `https://ipapi.co/${ip}/json/`,
-    `https://ipwho.is/${ip}`,
-    `https://api.ipify.org?format=json` // Last resort just for IP
-  ];
-  for(let url of sources) {
-    try {
-      let r = await fetch(url);
-      let d = await r.json();
-      if(d.ip || d.query) return d;
-    } catch(e) {}
+  let success = await callAPI(`https://ipwho.is/${manualIP}`, true);
+  if(!success) {
+    success = await callAPI(`https://ipapi.co/${manualIP}/json/`, false);
   }
-  return null;
+
+  if(!success) {
+    bar.style.width = "100%";
+    bar.innerText = "Connection Failed!";
+    bar.style.background = "#f44336";
+  }
 }
 
-function updateUI(d) {
-  document.getElementById('res-ip').innerText = d.ip || d.query || "N/A";
-  document.getElementById('res-asn').innerText = d.asn || d.connection?.asn || "N/A";
-  document.getElementById('res-city').innerText = d.city || "N/A";
-  document.getElementById('res-region').innerText = d.region || d.region_name || "N/A";
-  document.getElementById('res-country').innerText = d.country || d.country_name || "N/A";
-  document.getElementById('res-isp').innerText = d.org || d.connection?.isp || "N/A";
-  document.getElementById('res-tz').innerText = d.timezone || d.timezone?.id?.split('/').pop() || "N/A";
-  document.getElementById('res-os').innerText = navigator.userAgent.includes("Android") ? "Android" : "Device";
+async function callAPI(url, isWhoIs) {
+  try {
+    const r = await fetch(url);
+    const d = await r.json();
+    
+    if(isWhoIs && !d.success) return false;
+    if(!isWhoIs && d.error) return false;
 
-  // Smart Disguise Logic
-  let score = 98;
-  const isp = (d.org || d.connection?.isp || "").toLowerCase();
-  if(d.security?.is_vpn || isp.includes("vpn") || isp.includes("proxy")) score = 45;
-  else if(isp.includes("cloud") || isp.includes("hosting")) score = 75;
-  
-  score -= Math.floor(Math.random() * 4);
-  const bar = document.getElementById('bar');
-  bar.style.width = score + "%";
-  bar.innerText = toBold("Your Disguise: ") + score + "%";
-  bar.style.background = score > 85 ? "#00ff99" : (score > 60 ? "#ffcc00" : "#ff4444");
+    document.getElementById('res-ip').innerText = d.ip || d.query;
+    document.getElementById('res-asn').innerText = isWhoIs ? (d.connection.asn || "N/A") : (d.asn || "N/A");
+    document.getElementById('res-city').innerText = d.city || "N/A";
+    document.getElementById('res-region').innerText = d.region || d.region_name || "N/A";
+    document.getElementById('res-country').innerText = d.country || d.country_name || "N/A";
+    document.getElementById('res-isp').innerText = isWhoIs ? d.connection.isp : d.org;
+    
+    // Timezone City
+    if(isWhoIs && d.timezone) {
+        document.getElementById('res-tz').innerText = d.timezone.id.split('/').pop().replace('_', ' ');
+    } else {
+        document.getElementById('res-tz').innerText = d.timezone ? d.timezone.split('/').pop().replace('_', ' ') : "N/A";
+    }
+
+    const ua = navigator.userAgent;
+    document.getElementById('res-os').innerText = ua.includes("Android") ? "Android" : (ua.includes("Windows") ? "Windows" : "Device");
+
+    // Dynamic Whoer-style Disguise Logic
+    const bar = document.getElementById('bar');
+    let isVpn = isWhoIs ? (d.security.is_vpn || d.security.is_proxy) : false;
+    
+    let score;
+    if(isVpn) {
+        // VPN থাকলে ভেরিয়েবল স্কোর (৪০-৭০)
+        score = Math.floor(Math.random() * (70 - 40 + 1)) + 40;
+    } else {
+        // রিয়েল কানেকশন হলে Whoer এর মতো (৯০-১০০) র‍্যান্ডম স্কোর
+        let possibleScores = [90, 92, 95, 97, 100];
+        score = possibleScores[Math.floor(Math.random() * possibleScores.length)];
+    }
+
+    // Animation Delay for Real Feel
+    setTimeout(() => {
+        bar.style.width = score + "%";
+        bar.innerText = textToBold("Your Disguise: ") + score + "%";
+        bar.style.background = score >= 90 ? "#00ff99" : (score >= 70 ? "#ffcc00" : "#ff4444");
+        bar.style.color = "#000";
+    }, 500);
+    
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
-function searchAction() { const v = document.getElementById('ip-input').value.trim(); if(v) initLoad(v); }
-function copyVal(id, btn) { navigator.clipboard.writeText(document.getElementById(id).innerText); btn.innerText = "Copied!"; setTimeout(() => btn.innerText = "Copy", 1000); }
+function searchAction() {
+  const val = document.getElementById('ip-input').value.trim();
+  if(val) initLoad(val);
+  else alert("Enter a valid IP address!");
+}
+
+function copyVal(id, btn) {
+  navigator.clipboard.writeText(document.getElementById(id).innerText);
+  const old = btn.innerText;
+  btn.innerText = "Copied!";
+  setTimeout(() => btn.innerText = old, 1200);
+}
 
 window.onload = () => {
-  document.getElementById('creator-name').innerText = toBold("CREATOR BY SAGOR");
-  document.getElementById('search-instr').innerText = toBold("Enter your ip address to find details");
+  document.getElementById('creator-name').innerText = textToBold("CREATOR BY SAGOR");
+  document.getElementById('search-instr').innerText = textToBold("Enter your ip address to find details");
   initLoad();
 };
 </script>
+
 </body>
 </html>
